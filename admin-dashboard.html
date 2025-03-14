@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الإدارية</title>
+    
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Modern Admin Dashboard Styling */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --secondary-gradient: linear-gradient(135deg, #5efce8 0%, #195efb 100%);
+            --dark-gradient: linear-gradient(135deg, #232526 0%, #414345 100%);
+        }
+
+        body {
+            background: var(--dark-gradient);
+            font-family: 'Cairo', sans-serif;
+            color: #f4f4f4;
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            position: relative;
+            color: rgba(255,255,255,0.7) !important;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-gradient);
+            color: white !important;
+            transform: translateX(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-link:hover i, .nav-link.active i {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: transparent;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            background: white;
+            opacity: 1;
+        }
+
+        .admin-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .admin-section:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Animated Hover Effects */
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(37, 117, 252, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 117, 252, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 117, 252, 0); }
+        }
+
+        .nav-link:hover {
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        .navbar-brand {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <nav class="col-md-2 d-md-block sidebar">
+                <div class="position-sticky">
+                    <a class="navbar-brand text-white p-3" href="index.html">EAGLE RP</a>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard" data-section="dashboard">
+                                <i class="fas fa-home me-2"></i>لوحة المعلومات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#applications" data-section="applications">
+                                <i class="fas fa-users me-2"></i>طلبات الانضمام
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#gangs-management" data-section="gangs-management">
+                                <i class="fas fa-users-cog me-2"></i>العصابات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#user-management" data-section="user-management">
+                                <i class="fas fa-user-cog me-2"></i>إدارة المستخدمين
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#support" data-section="support">
+                                <i class="fas fa-life-ring me-2"></i>الدعم الفني
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#notifications" data-section="notifications">
+                                <i class="fas fa-bell me-2"></i>الإشعارات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings" data-section="settings">
+                                <i class="fas fa-cogs me-2"></i>الإعدادات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#store-management" data-section="store-management">
+                                <i class="fas fa-shopping-cart me-2"></i>إدارة المنتجات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reservations" data-section="reservations">
+                                <i class="fas fa-bookmark me-2"></i>الحجوزات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#announcements-management" data-section="announcements-management">
+                                <i class="fas fa-bullhorn me-2"></i>إدارة الإعلانات
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#streamers-management" data-section="streamers-management">
+                                <i class="fas fa-star me-2"></i>إدارة الستريمرز
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#job-applications-management" data-section="job-applications-management">
+                                <i class="fas fa-briefcase me-2"></i>إدارة طلبات التوظيف
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#job-management" data-section="job-management">
+                                <i class="fas fa-briefcase me-2"></i>إدارة الوظائف
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="col-md-10 ms-sm-auto px-4">
+                <!-- Dynamic Content Sections -->
+                <div id="dashboard" class="admin-section active">
+                    <h1 class="mt-4 mb-4">لوحة المعلومات</h1>
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="card text-white bg-primary animate__animated animate__fadeIn">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">طلبات جديدة</h5>
+                                        <h2 class="card-text" id="newApplicationsCount">15</h2>
+                                    </div>
+                                    <i class="fas fa-file-alt fa-3x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-success animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">مستخدمون نشطون</h5>
+                                        <h2 class="card-text" id="activeUsersCount">250</h2>
+                                    </div>
+                                    <i class="fas fa-users fa-3x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-warning animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">تذاكر الدعم</h5>
+                                        <h2 class="card-text" id="supportTicketsCount">8</h2>
+                                    </div>
+                                    <i class="fas fa-life-ring fa-3x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-white bg-info animate__animated animate__fadeIn" style="animation-delay: 0.6s;">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">متجر السيرفر</h5>
+                                        <h2 class="card-text" id="storeProductsCount">20</h2>
+                                    </div>
+                                    <i class="fas fa-store fa-3x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graphs and Detailed Stats -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">إحصائيات المستخدمين</div>
+                                <div class="card-body">
+                                    <!-- Placeholder for user statistics chart -->
+                                    <canvas id="userStatsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">نشاط المتجر</div>
+                                <div class="card-body">
+                                    <!-- Placeholder for store activity chart -->
+                                    <canvas id="storeActivityChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="applications" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">طلبات الانضمام</h1>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>العمر</th>
+                                <th>الخبرة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsList">
+                            <!-- Applications will be dynamically populated here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="gangs-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة العصابات</h1>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>اسم العصابة</th>
+                                <th>اسم اللاعب</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gangsList">
+                            <!-- Gangs will be dynamically populated here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="support" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">تذاكر الدعم الفني</h1>
+                    <div id="adminTicketsList">
+                        <!-- Tickets will be dynamically populated here -->
+                    </div>
+                </div>
+
+                <div id="user-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة المستخدمين</h1>
+                </div>
+                <div id="notifications" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">الإشعارات</h1>
+                    <div id="notificationsList" class="notifications-container">
+                        <!-- Notifications will be dynamically populated here -->
+                    </div>
+                </div>
+                <div id="settings" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">الإعدادات</h1>
+                    <div class="settings-section site-control-section mb-4">
+                        <h5 class="mb-3">
+                            <i class="fas fa-cog me-2"></i>
+                            التحكم بالموقع
+                        </h5>
+                        <div class="list-group">
+                            <button id="toggleApplicationsBtn" class="list-group-item list-group-item-action">
+                                <i class="fas fa-lock me-2"></i>
+                                قفل/فتح التقديم
+                            </button>
+                            <button id="changeSiteNameBtn" class="list-group-item list-group-item-action">
+                                <i class="fas fa-edit me-2"></i>
+                                تغيير اسم الموقع
+                            </button>
+                            <button id="changeAdminCodeBtn" class="list-group-item list-group-item-action">
+                                <i class="fas fa-key me-2"></i>
+                                تغيير كود الإدارة
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Site Appearance Section -->
+                    <div class="settings-section site-appearance-section mb-4">
+                        <h5 class="mb-3">
+                            <i class="fas fa-palette me-2"></i>
+                            تخصيص مظهر الموقع
+                        </h5>
+                        <div class="list-group">
+                            <button id="changeColorSchemeBtn" class="list-group-item list-group-item-action">
+                                <i class="fas fa-palette me-2"></i>
+                                تغيير نظام الألوان
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Admin Section -->
+                    <div class="settings-section advanced-admin-section mb-4">
+                        <h5 class="mb-3">
+                            <i class="fas fa-user-shield me-2"></i>
+                            التحكم الكامل للإدارة العليا
+                        </h5>
+                        <button id="superAdminControlBtn" class="btn btn-danger w-100">
+                            <i class="fas fa-lock me-2"></i>
+                            تحكم متقدم
+                        </button>
+                    </div>
+                </div>
+                <div id="store-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة المنتجات</h1>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <button id="addProductBtn" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>إضافة منتج جديد
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">قائمة المنتجات</div>
+                                <div class="card-body">
+                                    <table class="table table-striped" id="storeProductsList">
+                                        <thead>
+                                            <tr>
+                                                <th>الصورة</th>
+                                                <th>اسم المنتج</th>
+                                                <th>السعر</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Products will be dynamically populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="reservations" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">الحجوزات</h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                    <h3 class="mb-0">
+                                        <i class="fas fa-shopping-cart me-2"></i>
+                                        قائمة الحجوزات
+                                    </h3>
+                                    <span id="reservationsCount" class="badge bg-light text-dark">0 حجز</span>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped" id="reservationsTable">
+                                        <thead>
+                                            <tr>
+                                                <th>المنتج</th>
+                                                <th>اسم العميل</th>
+                                                <th>طريقة الدفع</th>
+                                                <th>الحالة</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="reservationsTableBody">
+                                            <!-- Reservations will be dynamically populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="announcements-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة الإعلانات</h1>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <button id="addAnnouncementBtn" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>إضافة إعلان جديد
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <!-- Filters -->
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-filter me-2"></i>
+                                        التصفية
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">نوع الإعلان</label>
+                                        <select id="announcementTypeFilter" class="form-select">
+                                            <option value="">الكل</option>
+                                            <option value="updates">تحديثات</option>
+                                            <option value="rules">قوانين</option>
+                                            <option value="events">فعاليات</option>
+                                            <option value="warnings">تنبيهات</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">البحث</label>
+                                        <input type="text" id="searchAnnouncements" class="form-control" placeholder="ابحث عن إعلان">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">الفترة</label>
+                                        <input type="date" id="announcementDateFilter" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                    <h3 class="mb-0">
+                                        <i class="fas fa-bullhorn me-2"></i>
+                                        قائمة الإعلانات
+                                    </h3>
+                                    <span id="announcementsCount" class="badge bg-light text-dark">0 إعلان</span>
+                                </div>
+                                <div id="announcementsList" class="card-body">
+                                    <!-- Announcements will be dynamically populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="streamers-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة الستريمرز</h1>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <button id="addStreamerBtn" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>إضافة ستريمر جديد
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">قائمة الستريمرز</div>
+                                <div class="card-body">
+                                    <table class="table table-striped" id="streamersListTable">
+                                        <thead>
+                                            <tr>
+                                                <th>الصورة</th>
+                                                <th>اسم الستريمر</th>
+                                                <th>المنصة</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="streamersList">
+                                            <!-- Streamers will be dynamically populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="job-applications-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة طلبات التوظيف</h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                    <h3 class="mb-0">
+                                        <i class="fas fa-briefcase me-2"></i>طلبات التوظيف
+                                    </h3>
+                                    <span id="jobApplicationsCount" class="badge bg-light text-dark">0 طلب</span>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped" id="jobApplicationsTable">
+                                        <thead>
+                                            <tr>
+                                                <th>الاسم</th>
+                                                <th>الوظيفة</th>
+                                                <th>الحالة</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="jobApplicationsTableBody">
+                                            <!-- Job applications will be dynamically populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="job-management" class="admin-section" style="display:none;">
+                    <h1 class="mt-4">إدارة الوظائف</h1>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+                            <div>
+                                <button id="toggleJobApplicationsBtn" class="btn btn-warning me-2">
+                                    <i class="fas fa-lock me-2"></i>
+                                    فتح/قفل التقديم
+                                </button>
+                                <button id="addNewJobPositionBtn" class="btn btn-success">
+                                    <i class="fas fa-plus me-2"></i>
+                                    إضافة وظيفة جديدة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="mb-0">
+                                <i class="fas fa-briefcase me-2"></i>
+                                قائمة الوظائف
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="jobPositionsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>الوظيفة</th>
+                                            <th>الحالة</th>
+                                            <th>عدد الأسئلة</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="jobPositionsList">
+                                        <!-- Job positions will be dynamically populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

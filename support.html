@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدعم الفني - EAGLE RP</title>
+    
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                EAGLE RP
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">عن السيرفر</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#rules">القوانين</a></li>
+                    <li class="nav-item"><a class="nav-link" href="apply.html">التقديم</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="support.html">الدعم الفني</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="bg-gradient py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8">
+                    <div class="card support-card shadow-lg animate__animated animate__fadeInUp">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h2 class="mb-0">
+                                <i class="fas fa-life-ring me-2"></i>
+                                مركز الدعم الفني
+                            </h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="activeTickets" class="mb-4">
+                                <h4>تذاكرك النشطة</h4>
+                                <div id="ticketsList" class="list-group">
+                                    <!-- Active tickets will be populated here dynamically -->
+                                </div>
+                            </div>
+
+                            <button id="newTicketBtn" class="btn btn-success btn-lg w-100 mb-4">
+                                <i class="fas fa-plus me-2"></i>
+                                فتح تذكرة جديدة
+                            </button>
+
+                            <div id="newTicketForm" class="d-none">
+                                <form id="supportForm">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="playerName" placeholder="اسم اللاعب" required>
+                                                <label for="playerName">اسم اللاعب</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="discordLink" placeholder="رابط الديسكورد" required>
+                                                <label for="discordLink">رابط الديسكورد</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="issueType" required>
+                                                    <option value="">اختر نوع المشكلة</option>
+                                                    <option value="login">مشكلة تسجيل</option>
+                                                    <option value="game">مشكلة في اللعبة</option>
+                                                    <option value="general">استفسار عام</option>
+                                                    <option value="other">أخرى</option>
+                                                </select>
+                                                <label for="issueType">نوع المشكلة</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <textarea class="form-control" placeholder="تفاصيل المشكلة" id="issueDetails" style="height: 120px" required></textarea>
+                                                <label for="issueDetails">تفاصيل المشكلة</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                                <i class="fas fa-paper-plane me-2"></i>
+                                                إرسال التذكرة
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="support.js"></script>
+</body>
+</html>

@@ -1,0 +1,933 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سيرفر GTA RP - عالم المغامرات</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            background: linear-gradient(
+                -45deg, 
+                #141e30, 
+                #243b55, 
+                #3a4f6b, 
+                #4d6980
+            );
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+            color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center, 
+                rgba(31, 38, 103, 0.3), 
+                rgba(58, 71, 180, 0.1)
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Updated sections to match background */
+        #about, #faq, #rules, #streamers {
+            background: transparent;
+            color: #f4f4f4;
+        }
+
+        #about .feature-box, 
+        #faq .accordion-item, 
+        #rules .rule-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f4f4f4;
+        }
+
+        #faq .accordion-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f4f4f4;
+        }
+
+        #faq .accordion-button:not(.collapsed) {
+            background: rgba(0, 123, 255, 0.2);
+            color: #f4f4f4;
+        }
+
+        #streamers .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-login {
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+        
+        /* New hover and animation styles */
+        #about .feature-box, 
+        #rules .rule-card,
+        #faq .accordion-item,
+        #streamers .card {
+            transition: all 0.4s ease;
+            transform-origin: center;
+        }
+
+        #about .feature-box:hover, 
+        #rules .rule-card:hover,
+        #faq .accordion-item:hover,
+        #streamers .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #about .feature-box:hover i,
+        #rules .rule-card:hover i,
+        #streamers .card:hover .card-img-top {
+            animation: pulse 1.5s infinite;
+        }
+
+        #faq .accordion-item:hover .accordion-button {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        /* Keyframe animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Add floating effect to section icons */
+        #about .feature-box i,
+        #rules .rule-card i,
+        #streamers .card-img-top {
+            transition: all 0.4s ease;
+        }
+
+        #about .feature-box:hover i,
+        #rules .rule-card:hover i {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Subtle background transition on hover */
+        #about .feature-box,
+        #rules .rule-card,
+        #faq .accordion-item,
+        #streamers .card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.05)
+            );
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        #about .feature-box:hover,
+        #rules .rule-card:hover,
+        #faq .accordion-item:hover,
+        #streamers .card:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2), 
+                rgba(255, 255, 255, 0.1)
+            );
+        }
+
+        .rule-category {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .rule-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .rule-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #007bff;
+            transition: transform 0.3s ease;
+        }
+
+        .rule-category:hover .rule-icon {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .faq-item .accordion-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f4f4f4;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item .accordion-button:hover {
+            background: rgba(0, 123, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .faq-item .accordion-body {
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <div class="ms-3 d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="navbarProfileImage" src="https://via.placeholder.com/40" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                            <span id="username">اسم المستخدم</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="userProfileDropdown">
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>الإعدادات</a></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notifications-container position-relative ms-3">
+                    <button id="notificationsBtn" class="btn btn-outline-light position-relative">
+                        <i class="fas fa-bell notifications-icon"></i>
+                        <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <a class="navbar-brand mx-auto" href="#">EAGLE RP</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home"><i class="fas fa-home me-2"></i>الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle me-2"></i>عن السيرفر</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rules"><i class="fas fa-gavel me-2"></i>القوانين</a></li>
+                    <li class="nav-item"><a class="nav-link" href="apply.html"><i class="fas fa-paper-plane me-2"></i>التقديم</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq"><i class="fas fa-question-circle me-2"></i>الأسئلة المتكررة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#streamers"><i class="fas fa-star me-2"></i>أفضل الستريمرز</a></li>
+                    <li class="nav-item"><a class="nav-link" href="store.html"><i class="fas fa-shopping-cart me-2"></i>متجر السيرفر</a></li>
+                    <li class="nav-item"><a class="nav-link" href="support.html"><i class="fas fa-life-ring me-2"></i>الدعم الفني</a></li>
+                    <li class="nav-item"><a class="nav-link" href="announcements.html"><i class="fas fa-bullhorn me-2"></i>الإعلانات</a></li>
+                    <li class="nav-item job-application-nav" style="display: none;">
+                        <a class="nav-link" href="jobs.html" id="jobApplicationNavLink">
+                            <i class="fas fa-briefcase me-2"></i>📋 تقديم وظيفة
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero text-center text-white d-flex align-items-center">
+            <div class="container position-relative">
+                <div class="hero-content">
+                    <h1 class="display-4 animate__animated animate__fadeInDown">EAGLE RP</h1>
+                    <p class="lead animate__animated animate__fadeInUp">عش قصتك، اصنع مستقبلك</p>
+                    
+                    <!-- NEW: Login Section in Hero Area -->
+                    <div class="login-hero-section animate__animated animate__zoomIn mt-4">
+                        <button id="loginBtn" class="btn btn-login btn-outline-light btn-lg position-relative">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user-circle me-2"></i>
+                                <span>تسجيل الدخول / إنشاء حساب</span>
+                                <span class="badge bg-danger ms-2 animate__animated animate__pulse">جديد</span>
+                            </div>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger animate__animated animate__heartBeat">
+                                <i class="fas fa-bolt"></i>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="cta-buttons animate__animated animate__zoomIn mt-3">
+                        <a href="apply.html" class="btn btn-warning btn-lg me-3">قدم الآن</a>
+                        <a href="#about" class="btn btn-outline-light btn-lg">معرفة المزيد</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-5 bg-transparent">
+            <div class="container">
+                <h2 class="text-center mb-4">عن سيرفر EAGLE RP</h2>
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <div class="feature-box">
+                            <i class="fas fa-gamepad fa-3x mb-3"></i>
+                            <h4>تجربة فريدة</h4>
+                            <p>عش حياة مختلفة داخل عالم GTA</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="feature-box">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h4>مجتمع متميز</h4>
+                            <p>انضم إلى مجتمع محترف ومتفاعل</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="feature-box">
+                            <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                            <h4>بيئة آمنة</h4>
+                            <p>نلتزم بأعلى معايير السلوك</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rules" class="py-5 bg-transparent">
+            <div class="container">
+                <h2 class="text-center mb-5 text-white">قوانين سيرفر EAGLE RP التفصيلية</h2>
+                <div class="rules-categories">
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="city">
+                                <div class="rule-icon">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <h4>قوانين المدينة</h4>
+                                <p>القواعد الأساسية للحياة المدنية</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="police" style="animation-delay: 0.2s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>قوانين الشرطة</h4>
+                                <p>إجراءات وسلوك رجال الأمن</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="gangs" style="animation-delay: 0.4s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <h4>قوانين العصابات</h4>
+                                <p>قواعد السلوك للعصابات</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="justice" style="animation-delay: 0.6s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <h4>قوانين وزارة العدل</h4>
+                                <p>القواعد القانونية والقضائية</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4 mt-4">
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="medical" style="animation-delay: 0.8s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-ambulance"></i>
+                                </div>
+                                <h4>قوانين الإسعاف</h4>
+                                <p>إجراءات الرعاية الطبية</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="roleplay" style="animation-delay: 1s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-theater-masks"></i>
+                                </div>
+                                <h4>قوانين الرول بلاي</h4>
+                                <p>قواعد اللعب التمثيلي</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="respect" style="animation-delay: 1.2s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h4>قوانين الاحترام</h4>
+                                <p>قواعد التعامل والسلوك</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="rule-category animate__animated animate__fadeInUp" data-category="personality" style="animation-delay: 1.4s;">
+                                <div class="rule-icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <h4>قوانين الشخصية</h4>
+                                <p>إرشادات تكوين الشخصية</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-5 bg-transparent">
+            <div class="container">
+                <h2 class="text-center mb-5">الأسئلة المتكررة المفصلة</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion" id="faqAccordion1">
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        <i class="fas fa-info-circle me-2"></i> ما هو سيرفر EAGLE RP؟
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion1">
+                                    <div class="accordion-body">
+                                        <p>EAGLE RP هو سيرفر محاكاة حياة واقعية (Roleplay) داخل لعبة GTA، حيث يمكنك عيش حياة مختلفة تمامًا عن الواقع.</p>
+                                        <ul>
+                                            <li>تجربة لعب دور مميزة</li>
+                                            <li>مجتمع محترف وودي</li>
+                                            <li>قوانين صارمة وواضحة</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        <i class="fas fa-user-plus me-2"></i> كيفية الانضمام للسيرفر؟
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                    <div class="accordion-body">
+                                        <div class="steps-container">
+                                            <div class="step animate__animated animate__fadeInRight">
+                                                <div class="step-number">1</div>
+                                                <div class="step-content">
+                                                    <h5>زيارة صفحة التقديم</h5>
+                                                    <p>ادخل لصفحة التقديم واملأ المعلومات بدقة</p>
+                                                </div>
+                                            </div>
+                                            <div class="step animate__animated animate__fadeInRight" style="animation-delay: 0.2s;">
+                                                <div class="step-number">2</div>
+                                                <div class="step-content">
+                                                    <h5>مراجعة الطلب</h5>
+                                                    <p>ستتم مراجعة طلبك خلال 48 ساعة</p>
+                                                </div>
+                                            </div>
+                                            <div class="step animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+                                                <div class="step-number">3</div>
+                                                <div class="step-content">
+                                                    <h5>القبول أو الرفض</h5>
+                                                    <p>سيتم إرسال رد نهائي عبر الإشعارات</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        <i class="fas fa-gavel me-2"></i> ما هي قواعد لعب الأدوار؟
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                    <div class="accordion-body">
+                                        <h5>مبادئ أساسية في الرول بلاي:</h5>
+                                        <ul>
+                                            <li>الالتزام التام بالشخصية المختارة</li>
+                                            <li>عدم الخروج من دور الشخصية</li>
+                                            <li>احترام شخصيات اللاعبين الآخرين</li>
+                                            <li>التفاعل المنطقي مع المواقف</li>
+                                            <li>عدم كسر القوانين أو استغلال الثغرات</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        <i class="fas fa-briefcase me-2"></i> كيف يمكنني الحصول على وظيفة؟
+                                    </button>
+                                </h2>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                    <div class="accordion-body">
+                                        <h5>خطوات التقدم للوظائف:</h5>
+                                        <ol>
+                                            <li>تصفح الوظائف المتاحة</li>
+                                            <li>اختيار الوظيفة المناسبة</li>
+                                            <li>تعبئة نموذج التقديم بدقة</li>
+                                            <li>انتظار المراجعة من الإدارة</li>
+                                            <li>المقابلة والتقييم النهائي</li>
+                                        </ol>
+                                        <p><strong>نصيحة:</strong> كن صادقًا وواقعيًا في نموذج التقديم</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion" id="faqAccordion2">
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                        <i class="fas fa-money-bill-wave me-2"></i> كيف يعمل النظام الاقتصادي؟
+                                    </button>
+                                </h2>
+                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                                    <div class="accordion-body">
+                                        <h5>مصادر الدخل:</h5>
+                                        <ul>
+                                            <li>الوظائف الرسمية</li>
+                                            <li>بيع وشراء الممتلكات</li>
+                                            <li>الأعمال الحرة</li>
+                                            <li>التجارة والمتاجرة</li>
+                                        </ul>
+                                        <h5>قواعد مهمة:</h5>
+                                        <ul>
+                                            <li>الالتزام بالقوانين المالية</li>
+                                            <li>عدم استغلال الثغرات</li>
+                                            <li>دفع الضرائب</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                        <i class="fas fa-ban me-2"></i> ما هي العقوبات في السيرفر؟
+                                    </button>
+                                </h2>
+                                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                                    <div class="accordion-body">
+                                        <h5>أنواع العقوبات:</h5>
+                                        <ul>
+                                            <li>التحذير</li>
+                                            <li>تقييد الصلاحيات</li>
+                                            <li>حظر مؤقت</li>
+                                            <li>حظر دائم</li>
+                                        </ul>
+                                        <h5>أسباب العقوبات:</h5>
+                                        <ul>
+                                            <li>مخالفة القوانين</li>
+                                            <li>السلوك غير اللائق</li>
+                                            <li>الغش أو استغلال الثغرات</li>
+                                            <li>التحرش أو الإساءة</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                        <i class="fas fa-scroll me-2"></i> القوانين الأساسية للسيرفر
+                                    </button>
+                                </h2>
+                                <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                                    <div class="accordion-body">
+                                        <h5>القوانين الرئيسية:</h5>
+                                        <ul>
+                                            <li>احترام جميع المشاركين</li>
+                                            <li>الالتزام بالشخصية</li>
+                                            <li>عدم استخدام لغة مسيئة</li>
+                                            <li>منع التحرش بأي شكل</li>
+                                            <li>عدم إفساد متعة اللعب للآخرين</li>
+                                        </ul>
+                                        <p><strong>ملاحظة:</strong> القوانين قابلة للتحديث، تابع التحديثات باستمرار</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 shadow-sm faq-item animate__animated animate__fadeInUp">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                                        <i class="fas fa-life-ring me-2"></i> كيف أحصل على الدعم الفني؟
+                                    </button>
+                                </h2>
+                                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                                    <div class="accordion-body">
+                                        <h5>قنوات الدعم:</h5>
+                                        <ul>
+                                            <li>نظام التذاكر في الموقع</li>
+                                            <li>قناة الدعم على الديسكورد</li>
+                                            <li>البريد الإلكتروني الرسمي</li>
+                                        </ul>
+                                        <h5>كيفية فتح تذكرة دعم:</h5>
+                                        <ol>
+                                            <li>تسجيل الدخول</li>
+                                            <li>الانتقال لصفحة الدعم</li>
+                                            <li>وصف المشكلة بوضوح</li>
+                                            <li>إرفاق أي مستندات داعمة</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="streamers" class="py-5 bg-transparent">
+            <div class="container">
+                <h2 class="text-center mb-4">أفضل الستريمرز</h2>
+                <div id="topStreamersContainer" class="row">
+                    <!-- Streamers will be dynamically populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button id="backToTopBtn" class="btn btn-primary position-fixed bottom-20 end-20 d-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2023 سيرفر GTA RP. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="#" class="text-white mx-2"><i class="fab fa-discord"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Detailed Rules -->
+    <div class="modal fade" id="rulesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rulesModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="rulesModalContent">
+                    <!-- Detailed rules will be dynamically populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+    <script src="settings.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topStreamersContainer = document.getElementById('topStreamersContainer');
+            const streamers = JSON.parse(localStorage.getItem('topStreamers') || '[]');
+
+            if (streamers.length === 0) {
+                topStreamersContainer.innerHTML = `
+                    <div class="col-12 text-center text-muted">
+                        <i class="fas fa-star-half-alt fa-3x mb-3"></i>
+                        <p>لا توجد معلومات عن الستريمرز حاليًا</p>
+                    </div>
+                `;
+                return;
+            }
+
+            streamers.forEach(streamer => {
+                const streamerCol = document.createElement('div');
+                streamerCol.classList.add('col-md-4', 'mb-3', 'animate__animated', 'animate__fadeInUp');
+                streamerCol.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${streamer.image}" class="card-img-top" alt="${streamer.name}" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">${streamer.name}</h5>
+                            <p class="card-text">${streamer.description || 'ستريمر متميز في EAGLE RP'}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">${streamer.platform}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                topStreamersContainer.appendChild(streamerCol);
+            });
+        });
+    </script>
+    <script>
+        // Add event listener for notifications button
+        document.getElementById('notificationsBtn').addEventListener('click', () => {
+            window.location.href = 'notifications.html';
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Profile Image and Username Update
+            const currentUser = localStorage.getItem('currentUser');
+            const navbarProfileImage = document.getElementById('navbarProfileImage');
+            const usernameSpan = document.getElementById('username');
+
+            if (currentUser) {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                const user = users[currentUser];
+
+                if (user) {
+                    // Update profile image
+                    const profileImage = localStorage.getItem('profileImage') || user.profileImage || 'https://via.placeholder.com/40';
+                    navbarProfileImage.src = profileImage;
+
+                    // Update username
+                    usernameSpan.textContent = user.username || currentUser;
+                }
+            }
+
+            // Announcements Navigation
+            const announcementsNavLink = document.querySelector('a[href="announcements.html"]');
+            if (announcementsNavLink) {
+                announcementsNavLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'announcements.html';
+                });
+            }
+
+            // Notifications Button
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            if (notificationsBtn) {
+                notificationsBtn.addEventListener('click', () => {
+                    window.location.href = 'notifications.html';
+                });
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Save current user settings before logout
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                const user = users[currentUser];
+                
+                // Save profile image and username if changed
+                const profileImage = localStorage.getItem('profileImage');
+                if (profileImage) {
+                    user.profileImage = profileImage;
+                }
+                
+                const updatedUsername = localStorage.getItem('username');
+                if (updatedUsername) {
+                    user.username = updatedUsername;
+                }
+                
+                users[currentUser] = user;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Remove current user session
+            localStorage.removeItem('currentUser');
+            
+            // Redirect to main page
+            window.location.href = 'index.html';
+        });
+    </script>
+    <!-- Discord Webhook Logging Script -->
+    <script>
+        // 🔹 ضع رابط Webhook الخاص بك هنا
+        const webhookUrl = "https://discord.com/api/webhooks/XXXXXXXXXX"; 
+
+        // تسجيل تغيير وإرساله إلى Webhook
+        async function logChange(action, user) {
+            const logMessage = `${new Date().toISOString()} - ${user} قام بـ ${action}`;
+            console.log("📜 تسجيل: ", logMessage);
+
+            // إرسال إشعار إلى Webhook في Discord
+            sendWebhook(logMessage);
+        }
+
+        // إرسال إشعار عبر Webhook
+        async function sendWebhook(message) {
+            try {
+                await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: `🔔 تحديث جديد: ${message}` })
+                });
+                console.log("✅ تم إرسال التحديث إلى Discord بنجاح!");
+            } catch (error) {
+                console.error("❌ فشل إرسال التحديث إلى Discord:", error);
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ruleCategories = document.querySelectorAll('.rule-category');
+            const rulesModal = new bootstrap.Modal(document.getElementById('rulesModal'));
+            const rulesModalTitle = document.getElementById('rulesModalTitle');
+            const rulesModalContent = document.getElementById('rulesModalContent');
+
+            const rulesets = {
+                city: {
+                    title: 'قوانين المدينة',
+                    icon: 'fas fa-city',
+                    rules: [
+                        'احترام الممتلكات العامة والخاصة',
+                        'الالتزام بقوانين المرور والسير',
+                        'دفع الضرائب والرسوم المستحقة',
+                        'عدم التسبب بإزعاج للآخرين',
+                        'المساهمة في نظافة وأمن المدينة'
+                    ]
+                },
+                police: {
+                    title: 'قوانين الشرطة',
+                    icon: 'fas fa-shield-alt',
+                    rules: [
+                        'حماية المدنيين وضمان سلامتهم',
+                        'توقيف المخالفين والمجرمين بشكل قانوني',
+                        'عدم إساءة استخدام السلطة',
+                        'التعامل بمهنية واحترافية',
+                        'توثيق جميع الإجراءات'
+                    ]
+                },
+                gangs: {
+                    title: 'قوانين العصابات',
+                    icon: 'fas fa-users-cog',
+                    rules: [
+                        'عدم مهاجمة المدنيين العزل',
+                        'احترام حدود المناطق والعصابات الأخرى',
+                        'الالتزام بالهيكل التنظيمي للعصابة',
+                        'عدم التسبب بفوضى عامة',
+                        'الحفاظ على سمعة العصابة'
+                    ]
+                },
+                justice: {
+                    title: 'قوانين وزارة العدل',
+                    icon: 'fas fa-balance-scale',
+                    rules: [
+                        'مراعاة القانون في جميع القرارات',
+                        'ضمان حقوق المواطنين',
+                        'تطبيق العدالة بصرامة',
+                        'الاستماع إلى الشكاوى بتحفظ',
+                        'العدالة المتساوية للجميع'
+                    ]
+                },
+                medical: {
+                    title: 'قوانين الإسعاف',
+                    icon: 'fas fa-ambulance',
+                    rules: [
+                        'تقديم المساعدة الطبية بسرعة',
+                        'الاحترام التام للمريض',
+                        'الالتزام بالمعايير الطبية العالمية',
+                        'التواصل مع المريض بكل احترام',
+                        'الحفاظ على سرية المريض'
+                    ]
+                },
+                roleplay: {
+                    title: 'قوانين الرول بلاي',
+                    icon: 'fas fa-theater-masks',
+                    rules: [
+                        'الالتزام بالشخصية',
+                        'الاحترام التام للشخصيات الأخرى',
+                        'عدم الخروج من الشخصية',
+                        'الاهتمام بالتفاصيل',
+                        'الاستمتاع بالتجربة'
+                    ]
+                },
+                respect: {
+                    title: 'قوانين الاحترام',
+                    icon: 'fas fa-handshake',
+                    rules: [
+                        'الاحترام المتبادل بين اللاعبين',
+                        'عدم إساءة استخدام السلطة',
+                        'الالتزام بالقوانين',
+                        'الاحترام التام لجميع اللاعبين',
+                        'التعاون والتعلم من بعض'
+                    ]
+                },
+                personality: {
+                    title: 'قوانين الشخصية',
+                    icon: 'fas fa-user-circle',
+                    rules: [
+                        'الاحترام التام للشخصية',
+                        'الالتزام بالشخصية',
+                        'عدم الخروج من الشخصية',
+                        'الاهتمام بالتفاصيل',
+                        'الاستمتاع بالتجربة'
+                    ]
+                }
+            };
+
+            ruleCategories.forEach(category => {
+                category.addEventListener('click', () => {
+                    const ruleCategory = category.dataset.category;
+                    const currentRuleset = rulesets[ruleCategory];
+
+                    rulesModalTitle.innerHTML = `
+                        <i class="${currentRuleset.icon} me-2"></i>
+                        ${currentRuleset.title}
+                    `;
+
+                    rulesModalContent.innerHTML = `
+                        <ul class="list-group">
+                            ${currentRuleset.rules.map((rule, index) => `
+                                <li class="list-group-item d-flex align-items-center animate__animated animate__fadeInRight" style="animation-delay: ${index * 0.1}s">
+                                    <span class="badge bg-primary me-3">${index + 1}</span>
+                                    ${rule}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+
+                    rulesModal.show();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
