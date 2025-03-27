@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Configuration settings
     const CONFIG = {
-        DISCORD_WEBHOOK_URL: 'https://discord.com/api/webhooks/1353754561294372864/kNO8NTodZKSBA0Cz-7xoZ3kB7qNQvVPb0s8mnCLH1pjkT88LBSxe_SM8EjJYjWeEvsVZ', // Replace with actual webhook
+        DISCORD_WEBHOOK_URL: 'https://discord.com/api/webhooks/1354813134698713198/zWVUwPN8A7-oSMTP7d0eaZgzAI_GQtFmHsgHUoRdeatdZTy-Rmap4RW8I5zlXfHc46G-', // Replace with actual webhook
         ANIMATION_DURATION: 500 // ms for smooth transitions
     };
 
